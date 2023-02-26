@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+::selection {
+  background-color: #ff515a;
+  color: white;
+}
+a.active {
+  color: #ff515a;
+}
