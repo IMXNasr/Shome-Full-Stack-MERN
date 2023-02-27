@@ -16,7 +16,7 @@ export const addShow = createAsyncThunk(
     const {data} = await axios.post(`${URL}/admin/add-show`, formData);
     return data;
   }
-)
+);
 
 const showSlice = createSlice({
   name: "show",
@@ -30,6 +30,7 @@ const showSlice = createSlice({
 
   },
   extraReducers: builder => {
+    //  getAllShows
     builder.addCase(getAllShows.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -45,6 +46,7 @@ const showSlice = createSlice({
       state.error = payload;
       state.shows = [];
     });
+    // addShow
     builder.addCase(addShow.pending, (state) => {
       state.loading = true;
       state.error = false;
