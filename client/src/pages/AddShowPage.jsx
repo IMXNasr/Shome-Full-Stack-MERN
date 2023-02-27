@@ -57,7 +57,7 @@ const AddShowPage = ({title}) => {
         <select className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" name="type" id="type">
           <option value="movie">Movie</option>
           <option value="series">Series</option>
-          <option value="cartoons">Cartoons</option>
+          <option value="cartoon">Cartoon</option>
         </select>
         <label className="text-xl -mb-3">Description:</label>
         <textarea className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required name="description" placeholder="Description" onChange={e => setDescription(e.target.value)}></textarea>
