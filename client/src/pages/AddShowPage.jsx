@@ -61,10 +61,6 @@ const AddShowPage = ({title}) => {
         </select>
         <label className="text-xl -mb-3">Description:</label>
         <textarea className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required name="description" placeholder="Description" onChange={e => setDescription(e.target.value)}></textarea>
-        <label className="text-xl -mb-3">Image:</label>
-        <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="file" name="image" placeholder="Image" onChange={e => setImage(e.target.files[0])} />
-        <label className="text-xl -mb-3">Cover:</label>
-        <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="file" name="cover" placeholder="Cover" onChange={e => setCover(e.target.value)} />
         <label className="text-xl -mb-3">Released Date:</label>
         <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="date" name="released_date" placeholder="Released Date" onChange={e => setReleasedDate(e.target.value)} />
         <label className="text-xl -mb-3">Rating:</label>
@@ -80,6 +76,10 @@ const AddShowPage = ({title}) => {
         <datalist name="country" id="country">
           {countries && countries.map((country, idx) => (<option key={idx} value={country.name.common}>{country.name.common}</option>))}
         </datalist>
+        <label className="text-xl -mb-3">Image:</label>
+        <input className="file:bg-mainColor file:border-none file:text-white file:rounded-full file:py-2 file:px-4 cursor-pointer focus:outline-none" required type="file" name="image" placeholder="Image" onChange={e => setImage(e.target.files[0])} />
+        <label className="text-xl -mb-3">Cover:</label>
+        <input className="file:bg-mainColor file:border-none file:text-white file:rounded-full file:py-2 file:px-4 cursor-pointer focus:outline-none" required type="file" name="cover" placeholder="Cover" onChange={e => setCover(e.target.files[0])} />
         <div className="flex items-center gap-4">
           <input id="featured" className="border-[1px] focus:outline-none focus:border-mainColor rounded-xl accent-mainColor" type="checkbox" name="featured" placeholder="Featured" checked={featured} onChange={e => setFeatured(!featured)} />
           <label htmlFor="featured" className="text-xl">Featured</label>
