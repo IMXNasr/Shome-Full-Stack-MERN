@@ -46,7 +46,7 @@ const AddShowPage = ({title}) => {
     console.log(featured);
   }
   return (
-    <div className="container mx-auto h-full p-10 md:p-20 grid place-items-center">
+    <div className="container mx-auto h-full m-14 grid place-items-center">
       <form method="POST" className="w-full md:w-3/4 xl:w-1/2 flex flex-col gap-6" onSubmit={submitFn} encType="multipart/form-data">
         {/* <div className="bg-transparent w-full p-3 text-red-600 border-red-600 border-2 rounded"></div> */}
         <h1 className="text-4xl font-semibold">Add New Show</h1>
@@ -57,6 +57,7 @@ const AddShowPage = ({title}) => {
         <select className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" name="type" id="type">
           <option value="movie">Movie</option>
           <option value="series">Series</option>
+          <option value="cartoons">Cartoons</option>
         </select>
         <label className="text-xl -mb-3">Description:</label>
         <textarea className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required name="description" placeholder="Description" onChange={e => setDescription(e.target.value)}></textarea>
