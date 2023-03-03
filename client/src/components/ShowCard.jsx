@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { URL } from '../utils/constants';
 
 const ShowCard = ({show}) => {
+  const showLink = `/${show.type}/${show._id}`;
   return (
     <div className="rounded-xl bg-[#22252f] overflow-hidden p-2">
       {/* Image Container */}
-      <Link to={`/movie/${show._id}`} className="overflow-hidden">
+      <Link to={showLink} className="overflow-hidden">
         <img className="rounded-xl" src={URL + "/uploads/show/" + show.image} alt={show.name} />
       </Link>
       {/* Rating */}
@@ -16,7 +17,7 @@ const ShowCard = ({show}) => {
         <h3 className="text-white">{show.rating}</h3>
       </div>
       <h1 className="text-3xl font-medium mb-4 w-fit">
-        <Link to="/movies/MovieID" className="w-fit">
+        <Link to={showLink} className="w-fit">
           {show.name}
         </Link>
       </h1>

@@ -8,7 +8,7 @@ import jwtEncode from 'jwt-encode';
 import formidable from 'formidable';
 import fs from 'fs-extra';
 
-const app = express();
+export const app = express();
 app.use('/uploads/show', express.static('./uploads/show'));
 app.use('/uploads/cover', express.static('./uploads/cover'));
 app.use(express.json());
@@ -65,11 +65,15 @@ const moveFile = (oldPath, newPath) => {
 app.get('/shows', async (req, res) => {
   let allShows;
   if(req.query.featured){
-    allShows = await Show.find({featured: true});
+    allShows = await Show.find({featured: true}).sort({date_added: -1});
   }else if(req.query.type){
-    allShows = await Show.find({type: req.query.type})
+    if(req.query.type === 'all'){
+      allShows = await Show.find({}).sort({date_added: -1});
+    }else{
+      allShows = await Show.find({type: req.query.type}).sort({date_added: -1});
+    }
   }else{
-    allShows = await Show.find({});
+    allShows = await Show.find({}).sort({date_added: -1});
   }
   return res.json(allShows);
 });
@@ -87,7 +91,7 @@ app.post('/admin/add-show', (req, res) => {
   const form = formidable({ multiples: true });
   form.parse(req, async (err, fields, files) => {
     const newImageName = Date.now() + '_' + files.image.originalFilename;
-    const newCoverName = files.cover && Date.now() + '_' + files.cover.originalFilename
+    const newCoverName = files.cover && Date.now() + '_' + files.cover.originalFilename;
     moveFile(files.image.filepath, './uploads/show/' + newImageName);
     if(files.cover){
       moveFile(files.cover.filepath, './uploads/cover/' + newCoverName);

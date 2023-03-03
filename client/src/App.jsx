@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components';
-import { AddShowPage, AdminPage, AllShowsPage, HomePage, LoginPage, MoviePage, MoviesPage, NotFoundPage, ProfilePage, RegisterPage } from './pages';
+import { AddShowPage, AdminPage, HomePage, LoginPage, ShowsPage, NotFoundPage, ProfilePage, RegisterPage, OneShowPage } from './pages';
 import { appName } from './utils/constants';
 
 const App = () => {
@@ -19,9 +19,8 @@ const App = () => {
         <Route path="/admin" element={<AdminPage title={`Admin - ${appName}`} />} />
         <Route path="/admin/add-show" element={<AddShowPage title={`Add Show - ${appName}`} />} />
         {/* Shows Pages */}
-        <Route path="/all" element={<AllShowsPage title={`All Shows - ${appName}`} />} />
-        <Route path="/:type" element={<MoviesPage title={`Movies - ${appName}`} />} />
-        <Route path="/:type/:id" element={<MoviePage title={`Movie - ${appName}`} />} />
+        <Route path="/:type" element={<ShowsPage title={`Shows - ${appName}`} />} />
+        <Route path="/:type/:id" element={<OneShowPage title={`Movie - ${appName}`} />} />
         {/* 404 Error */}
         <Route path="*" element={<NotFoundPage title={`404 Not Found - ${appName}`} />} />
       </Routes>

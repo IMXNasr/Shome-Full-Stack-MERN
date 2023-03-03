@@ -18,9 +18,9 @@ const Navbar = () => {
         {/* Links */}
         <ul className="flex items-center">
           <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/all">All</NavLink>
-          <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/movies">Movies</NavLink>
+          <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/movie">Movies</NavLink>
           <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/tv">TV Series</NavLink>
-          <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/cartoons">Cartoons</NavLink>
+          <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/cartoon">Cartoons</NavLink>
         </ul>
         {/* Search */}
         <form onSubmit={e => e.preventDefault()} className="flex items-center border rounded-xl p-2" method="POST">

@@ -1,7 +1,6 @@
 export { default as HomePage } from './HomePage';
-export { default as AllShowsPage } from './AllShowsPage';
-export { default as MoviesPage } from './MoviesPage';
-export { default as MoviePage } from './MoviePage';
+export { default as ShowsPage } from './ShowsPage';
+export { default as OneShowPage } from './OneShowPage';
 
 export { default as RegisterPage } from './RegisterPage';
 export { default as LoginPage } from './LoginPage';

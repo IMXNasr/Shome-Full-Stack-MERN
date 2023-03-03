@@ -2,22 +2,18 @@ import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { URL } from "../utils/constants";
 
-export const getAllShows = createAsyncThunk(
-  'show/getAllShows',
-  async () => {
-    const {data} = await axios.get(`${URL}/shows`);
+export const getShows = createAsyncThunk(
+  'show/getShows',
+  async (type) => {
+    const {data} = await axios.get(`${URL}/shows?type=${type}`);
     return data;
   }
 );
 
-export const getTypedShows = createAsyncThunk(
-  'show/getTypedShows',
-  async (type) => {
-    if(type === 'featured'){
-      const {data} = await axios.get(`${URL}/shows?featured=true`);
-    }else{
-      const {data} = await axios.get(`${URL}/shows?type=${type}`);
-    }
+export const getFeaturedShows = createAsyncThunk(
+  'show/getFeaturedShows',
+  async () => {
+    const {data} = await axios.get(`${URL}/shows?featured=true`);
     return data;
   }
 );
@@ -55,34 +51,34 @@ const showSlice = createSlice({
 
   },
   extraReducers: builder => {
-    //  getAllShows
-    builder.addCase(getAllShows.pending, (state) => {
+    //  getShows
+    builder.addCase(getShows.pending, (state) => {
       state.loading = true;
       state.error = null;
       state.shows = [];
     });
-    builder.addCase(getAllShows.fulfilled, (state, {payload}) => {
+    builder.addCase(getShows.fulfilled, (state, {payload}) => {
       state.loading = false;
       state.error = null;
       state.shows = payload;
     });
-    builder.addCase(getAllShows.rejected, (state, {payload}) => {
+    builder.addCase(getShows.rejected, (state, {payload}) => {
       state.loading = false;
       state.error = payload;
       state.shows = [];
     });
-    //  getTypedShows
-    builder.addCase(getTypedShows.pending, (state) => {
+    //  getFeaturedShows
+    builder.addCase(getFeaturedShows.pending, (state) => {
       state.loading = true;
       state.error = null;
       state.shows = [];
     });
-    builder.addCase(getTypedShows.fulfilled, (state, {payload}) => {
+    builder.addCase(getFeaturedShows.fulfilled, (state, {payload}) => {
       state.loading = false;
       state.error = null;
       state.shows = payload;
     });
-    builder.addCase(getTypedShows.rejected, (state, {payload}) => {
+    builder.addCase(getFeaturedShows.rejected, (state, {payload}) => {
       state.loading = false;
       state.error = payload;
       state.shows = [];

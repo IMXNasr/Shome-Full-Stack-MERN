@@ -4,6 +4,7 @@ export const URL = "http://127.0.0.1:8000";
 export const staticURL = URL + "/uploads"
 
 export const genres = [
+  {value: "Animation", label: "Animation"},
   {value: "Action", label: "Action"},
   {value: "Crime", label: "Crime"},
   {value: "Mystery", label: "Mystery"},
@@ -13,6 +14,8 @@ export const genres = [
   {value: "Fiction", label: "Fiction"},
   {value: "Horror", label: "Horror"},
   {value: "Comedy", label: "Comedy"},
+  {value: "Romance", label: "Romance"},
+  {value: "Fantasy", label: "Fantasy"},
   {value: "Romance", label: "Romance"},
   {value: "Drama", label: "Drama"},
 ];

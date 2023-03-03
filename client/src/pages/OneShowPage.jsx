@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOneShow } from '../store/show';
 import { staticURL, URL } from '../utils/constants';
 
-const MoviePage = () => {
+const OneShowPage = () => {
   const {id} = useParams();
   const [watchTrailer, setWatchTrailer] = useState(false);
   const [headerStyle, setHeaderStyle] = useState({});
@@ -70,7 +70,7 @@ const MoviePage = () => {
           {show.runtime ? (
             <div className="flex items-center border-b border-gray-400 py-3 mb-5">
               <h3 className="mr-5 font-semibold text-xl">Runtime:</h3>
-              <div className="flex items-center gap-2">{show.runtime + "m"}</div>
+              <div className="flex items-center gap-2">{Math.floor(show.runtime / 60) + "h " + (show.runtime % 60) + "m"}</div>
             </div>
           ) : show.num_episodes ? (
             <div className="flex items-center border-b border-gray-400 py-3 mb-5">
@@ -103,4 +103,4 @@ const MoviePage = () => {
   )
 }
 
-export default MoviePage;
+export default OneShowPage;
