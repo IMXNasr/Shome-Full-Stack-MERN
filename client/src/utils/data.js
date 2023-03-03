@@ -43,4 +43,22 @@ export const shows = [
     country: "Spain",
     featured: true
   },
+];
+
+export const actors = [
+  {
+    id: 1,
+    name: "Tom Hardy",
+    photo: "tom.jpg"
+  },
+  {
+    id: 2,
+    name: "Riz Ahmed",
+    photo: "riz.jpg"
+  },
+  {
+    id: 1,
+    name: "Michelle",
+    photo: "michelle.jpg"
+  },
 ]

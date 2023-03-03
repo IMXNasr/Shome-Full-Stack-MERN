@@ -2,16 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShowCard } from '../components';
 import { getAllShows } from '../store/show';
-import { shows } from '../utils/data';
 
-const All = ({title}) => {
+const AllShowsPage = ({title}) => {
   document.title = title;
   const dispatch = useDispatch();
-  const show = {
-    name: "Venom",
-    image: "venom.jpg",
-    rating: 9.4
-  }
+  const {loading, error, shows} = useSelector(state => state.shows);
   useEffect(() => {
     dispatch(getAllShows());
   }, []);
@@ -28,4 +23,4 @@ const All = ({title}) => {
   )
 }
 
-export default All;
+export default AllShowsPage;

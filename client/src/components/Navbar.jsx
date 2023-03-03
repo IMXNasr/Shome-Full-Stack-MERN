@@ -19,7 +19,7 @@ const Navbar = () => {
         <ul className="flex items-center">
           <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/all">All</NavLink>
           <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/movies">Movies</NavLink>
-          <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/series">Series</NavLink>
+          <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/tv">TV Series</NavLink>
           <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/cartoons">Cartoons</NavLink>
         </ul>
         {/* Search */}

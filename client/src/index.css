@@ -11,6 +11,15 @@
   background-color: #ff515a;
   color: white;
 }
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+  overflow: hidden;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ff515a;
+  border-radius: 34rem;
+}
 a.active {
   color: #ff515a;
 }

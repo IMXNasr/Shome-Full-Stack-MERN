@@ -2,20 +2,20 @@ import mongoose from "mongoose";
 
 const Show = new mongoose.Schema({
   name: {type: String, required: true},
-  rating: {type: Number, default: 0},
   type: {type: String, required: true},
-  categories: {type: Array},
-  date_added: {type: Date, default: Date.now},
-  image: {type: String},
-  cover: {type: String},
+  genres: {type: Array},
   description: {type: String},
   released_date: {type: Date},
-  actors: {type: mongoose.Schema.Types.ObjectId, ref: 'Actor'},
+  rating: {type: Number, default: 0},
   num_episodes: {type: Number},
   trailer_link: {type: String},
   runtime: {type: Number},
   country: {type: String},
-  featured: {type: Boolean}
+  image: {type: String},
+  featured: {type: Boolean},
+  cover: {type: String},
+  actors: {type: mongoose.Schema.Types.ObjectId, ref: 'Actor'},
+  date_added: {type: Date, default: Date.now},
 });
 
 const model = mongoose.model('Show', Show);

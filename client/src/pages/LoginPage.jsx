@@ -1,18 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/auth';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = ({title}) => {
   document.title = title;
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const {userInfo, error} = useSelector(state => state.auth);
   useEffect(() => {
     if(userInfo){
-      navigate('/', 'replace');
+      if(location.search){
+        navigate('/' + location.search.split('redirect=')[1], 'replace');
+      }else{
+        navigate('/', 'replace');
+      }
     }
   }, [userInfo]);
   const submitFn = (e) => {
@@ -25,7 +30,7 @@ const LoginPage = ({title}) => {
         {error && (<div className="bg-transparent w-full p-3 text-red-600 border-red-600 border-2 rounded">{error}</div>)}
         <h1 className="text-4xl font-semibold text-center">Login</h1>
         <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="email" name="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
-        <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="password" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+        <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="text" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
         <p className="text-gray-500">Don't have an account? <Link to="/register" className="text-mainColor underline">Register</Link></p>
         <input className="bg-mainColor w-full text-white py-3 cursor-pointer rounded-xl" type="submit" name="submit" value="Login" />
       </form>

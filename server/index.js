@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import express from 'express';
 import User from './models/User.js';
+import Show from './models/Show.js';
 import { sha1 } from './utils/functions.js';
 import jwtEncode from 'jwt-encode';
 import formidable from 'formidable';
@@ -9,6 +10,7 @@ import fs from 'fs-extra';
 
 const app = express();
 app.use('/uploads/show', express.static('./uploads/show'));
+app.use('/uploads/cover', express.static('./uploads/cover'));
 app.use(express.json());
 app.use(cors());
 
@@ -60,14 +62,56 @@ const moveFile = (oldPath, newPath) => {
   fs.move(oldPath, newPath)
 }
 
+app.get('/shows', async (req, res) => {
+  let allShows;
+  if(req.query.featured){
+    allShows = await Show.find({featured: true});
+  }else if(req.query.type){
+    allShows = await Show.find({type: req.query.type})
+  }else{
+    allShows = await Show.find({});
+  }
+  return res.json(allShows);
+});
+
+app.get('/show/:id', async (req, res) => {
+  try{
+    const oneShow = await Show.findById(req.params.id);
+    return res.json({"success": "Fetched Successfully !!", "show": oneShow});
+  }catch(e){
+    return res.json({"error": "Can't find this movie"});
+  }
+});
+
 app.post('/admin/add-show', (req, res) => {
   const form = formidable({ multiples: true });
-  form.parse(req, (err, fields, files) => {
-    moveFile(files.image.filepath, './uploads/show/' + Date.now() + '_' + files.image.originalFilename);
+  form.parse(req, async (err, fields, files) => {
+    const newImageName = Date.now() + '_' + files.image.originalFilename;
+    const newCoverName = files.cover && Date.now() + '_' + files.cover.originalFilename
+    moveFile(files.image.filepath, './uploads/show/' + newImageName);
+    if(files.cover){
+      moveFile(files.cover.filepath, './uploads/cover/' + newCoverName);
+    }
+    const newShow = {
+      name: fields.name,
+      type: fields.type,
+      genres: fields.genres.split(','),
+      description: fields.description,
+      released_date:fields.released_date === 'undefined' ? undefined : fields.released_date,
+      rating: Number(fields.rating),
+      num_episodes: Number(fields.num_episodes),
+      runtime: Number(fields.runtime),
+      trailer_link: fields.trailer_link,
+      country: fields.country,
+      image: newImageName,
+      cover: newCoverName,
+      featured: fields.featured === 'true' ? true : false,
+    };
+    await Show.create(newShow);
     return res.json({"success": "Added successfully !!"});
   });
 });
 
-const PORT = 8000
+const PORT = 8000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}...`));

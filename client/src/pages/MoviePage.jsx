@@ -4,27 +4,34 @@ import { HiOutlineShare } from 'react-icons/hi';
 import { Actor } from '../components';
 import { useParams } from 'react-router-dom';
 import { shows } from '../utils/data';
-import ReactPlayer from 'react-player/youtube';
+import YouTubePlayer from 'react-player/youtube';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOneShow } from '../store/show';
+import { staticURL, URL } from '../utils/constants';
 
 const MoviePage = () => {
   const {id} = useParams();
-  const [show, setShow] = useState({});
   const [watchTrailer, setWatchTrailer] = useState(false);
+  const [headerStyle, setHeaderStyle] = useState({});
+  const dispatch = useDispatch();
+  const {loading, error, show} = useSelector(state => state.shows);
   const section = useRef();
-  const headerStyle = {
-    backgroundImage: `linear-gradient(to bottom, #161a1e, #161a1ecc, #161a1e), url(/${show.cover})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center" // Vertical Horizontal
-  };
   useEffect(() => {
     window.addEventListener('scroll', () => {
       let value = window.scrollY;
       section.current.style.top = '-' + (value * 0.5 + 300) + 'px';
     });
-    setShow(shows.find(show => show.id === +id));
-  }, []);
-  console.log(show);
+    dispatch(getOneShow(id));
+  }, [dispatch, id]);
+  useEffect(() => {
+    if(show && show.cover)
+    setHeaderStyle({
+      backgroundImage: `linear-gradient(to bottom, #161a1e, #161a1ecc, #161a1e), url(${staticURL + "/cover/" + show.cover})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center" // Vertical Horizontal
+    });
+  }, [show]);
   if(show)
   return (
     <>
@@ -32,7 +39,7 @@ const MoviePage = () => {
       {/* Bottom Section */}
       <div ref={section} className="container relative flex -top-[300px] gap-8">
         {/* Image Container */}
-        <div><div className="overflow-hidden rounded-2xl w-72 shadow-xl"><img className="pointer-events-none" src={`/${show.image}`} alt={show.name} /></div></div>
+        <div><div className="overflow-hidden rounded-2xl w-72 shadow-xl"><img className="pointer-events-none" src={staticURL + "/show/" + show.image} alt={show.name} /></div></div>
         {/* Info */}
         <div className="flex-1">
           <h1 className="text-6xl font-semibold mb-5">{show.name}</h1>
@@ -49,8 +56,8 @@ const MoviePage = () => {
           <div className="flex items-center border-b border-gray-400 py-3 mb-5">
             <h3 className="mr-5 font-semibold text-xl">Genres:</h3>
             <div className="flex items-center gap-2">
-              {show.categories && show.categories.map((category, idx) => (
-                <div className="rounded-full bg-gray-600 py-1 px-3" key={idx}>{category}</div>
+              {show.genres && show.genres.map((genre, idx) => (
+                <div className="rounded-full bg-gray-600 py-1 px-3" key={idx}>{genre}</div>
               ))}
             </div>
           </div>
@@ -78,6 +85,7 @@ const MoviePage = () => {
           <h1 className="text-4xl font-semibold mb-5">Cast & Crew</h1>
           {/* Actors */}
           <div>
+            {/* FIXME */}
             {show.actors && show.actors.map((actor, idx) => (
               <Actor key={idx} img={actor.photo} name={actor.name} as={actor.as} />
             ))}
@@ -87,7 +95,8 @@ const MoviePage = () => {
       {/* YouTube */}
       {watchTrailer && (
         <div className="fixed w-full h-full bg-bgDark/90 top-0 left-0 grid place-items-center" onClick={() => setWatchTrailer(false)}>
-          <ReactPlayer url={show.trailer_link} controls />
+          <YouTubePlayer className="h-full" url={show.trailer_link} controls />
+          {/*FIXME Use container to the player to style the container and the player */}
         </div>
       )}
     </>

@@ -11,9 +11,6 @@ const App = () => {
       <Routes>
         {/* User Pages */}
         <Route path="/" element={<HomePage title={`${appName}`} />} />
-        <Route path="/all" element={<AllShowsPage title={`All Shows - ${appName}`} />} />
-        <Route path="/movies" element={<MoviesPage title={`Movies - ${appName}`} />} />
-        <Route path="/movies/:id" element={<MoviePage title={`Movie - ${appName}`} />} />
         {/* Auth Pages */}
         <Route path="/register" element={<RegisterPage title={`Register - ${appName}`} />} />
         <Route path="/login" element={<LoginPage title={`Login - ${appName}`} />} />
@@ -21,6 +18,10 @@ const App = () => {
         {/* Admin Pages */}
         <Route path="/admin" element={<AdminPage title={`Admin - ${appName}`} />} />
         <Route path="/admin/add-show" element={<AddShowPage title={`Add Show - ${appName}`} />} />
+        {/* Shows Pages */}
+        <Route path="/all" element={<AllShowsPage title={`All Shows - ${appName}`} />} />
+        <Route path="/:type" element={<MoviesPage title={`Movies - ${appName}`} />} />
+        <Route path="/:type/:id" element={<MoviePage title={`Movie - ${appName}`} />} />
         {/* 404 Error */}
         <Route path="*" element={<NotFoundPage title={`404 Not Found - ${appName}`} />} />
       </Routes>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../store/auth';
+import { appName } from '../utils/constants';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -9,9 +10,9 @@ const ProfilePage = () => {
   const {userInfo} = useSelector(state => state.auth);
   useEffect(() => {
     if(!userInfo){
-      navigate('/login', 'replace');
+      navigate('/login?redirect=profile', 'replace');
     }else{
-      document.title = userInfo.username + " - Shome";
+      document.title = userInfo.username + ` - ${appName}`;
     }
   }, [userInfo]);
   if(userInfo)
