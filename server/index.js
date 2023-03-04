@@ -78,12 +78,13 @@ app.get('/shows', async (req, res) => {
   return res.json(allShows);
 });
 
+// getOneShow
 app.get('/show/:id', async (req, res) => {
-  try{
-    const oneShow = await Show.findById(req.params.id);
+  const oneShow = await Show.findOne({_id: req.params.id, type: req.query.type});
+  if(oneShow){
     return res.json({"success": "Fetched Successfully !!", "show": oneShow});
-  }catch(e){
-    return res.json({"error": "Can't find this movie"});
+  }else{
+    return res.json({"error": "Can't find this show !!"});
   }
 });
 

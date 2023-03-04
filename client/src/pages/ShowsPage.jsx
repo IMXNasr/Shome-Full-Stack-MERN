@@ -9,6 +9,10 @@ const ShowsPage = ({title}) => {
   const {type} = useParams();
   if(type === 'all'){
     document.title = `All Shows - ${appName}`;
+  }else if(type === 'tv'){
+    document.title = `All TV Series - ${appName}`;
+  }else{
+    document.title = `All ${type[0].toUpperCase() + type.substring(1)}s - ${appName}`
   }
   const dispatch = useDispatch();
   const {loading, error, shows} = useSelector(state => state.shows);

@@ -7,10 +7,10 @@ import { shows } from '../utils/data';
 import YouTubePlayer from 'react-player/youtube';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneShow } from '../store/show';
-import { staticURL, URL } from '../utils/constants';
+import { appName, staticURL, URL } from '../utils/constants';
 
 const OneShowPage = () => {
-  const {id} = useParams();
+  const {id, type} = useParams();
   const [watchTrailer, setWatchTrailer] = useState(false);
   const [headerStyle, setHeaderStyle] = useState({});
   const dispatch = useDispatch();
@@ -21,16 +21,18 @@ const OneShowPage = () => {
       let value = window.scrollY;
       section.current.style.top = '-' + (value * 0.5 + 300) + 'px';
     });
-    dispatch(getOneShow(id));
-  }, [dispatch, id]);
+    dispatch(getOneShow({id, type}));
+  }, [dispatch, id, type]);
   useEffect(() => {
-    if(show && show.cover)
-    setHeaderStyle({
-      backgroundImage: `linear-gradient(to bottom, #161a1e, #161a1ecc, #161a1e), url(${staticURL + "/cover/" + show.cover})`,
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-      backgroundPosition: "center" // Vertical Horizontal
-    });
+    if(show && show.cover){
+      document.title = show.name + ' - ' + appName;
+      setHeaderStyle({
+        backgroundImage: `linear-gradient(to bottom, #161a1e, #161a1ecc, #161a1e), url(${staticURL + "/cover/" + show.cover})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center" // Vertical Horizontal
+      });
+    }
   }, [show]);
   if(show)
   return (

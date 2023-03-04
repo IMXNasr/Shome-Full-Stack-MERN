@@ -20,8 +20,8 @@ export const getFeaturedShows = createAsyncThunk(
 
 export const getOneShow = createAsyncThunk(
   'show/getOneShow',
-  async (id, {fulfillWithValue, rejectWithValue}) => {
-    const {data} = await axios.get(`${URL}/show/${id}`);
+  async (body, {fulfillWithValue, rejectWithValue}) => {
+    const {data} = await axios.get(`${URL}/show/${body.id}?type=${body.type}`);
     if(data.success){
       return fulfillWithValue(data);
     }else{
@@ -44,7 +44,7 @@ const showSlice = createSlice({
     loading: false,
     error: null,
     shows: [],
-    show: {},
+    show: null,
     success: null,
   },
   reducers: {
