@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Spinner } from '../../components';
 import { getShows } from '../../store/show';
 import { staticURL } from '../../utils/constants';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const ShowsPage = () => {
   const dispatch = useDispatch();
@@ -34,10 +35,12 @@ const ShowsPage = () => {
               <td className="p-3 text-center">Trailer Link</td>
               <td className="p-3 text-center">Runtime</td>
               <td className="p-3 text-center">Episodes</td>
+              <td className="p-3 text-center">Country</td>
               <td className="p-3 text-center">Image</td>
               <td className="p-3 text-center">Cover</td>
               <td className="p-3 text-center">Released Date</td>
               <td className="p-3 text-center">Date Added</td>
+              <td className="p-3 text-center">Featured</td>
             </tr>
           </thead>
           <tbody>
@@ -50,10 +53,12 @@ const ShowsPage = () => {
                 <td className="p-3 text-center"><a className="underline text-mainColor" href={show.trailer_link} target="_blank">Link</a></td>
                 <td className="p-3 text-center">{show.runtime}<small>m</small></td>
                 <td className="p-3 text-center">{show.num_episodes}</td>
+                <td className="p-3 text-center">{show.country}</td>
                 <td className="p-3 text-center"><img className="h-10 mx-auto" src={staticURL + '/show/' + show.image} alt={show.name} /></td>
                 <td className="p-3 text-center"><img className="h-10 mx-auto" src={staticURL + '/cover/' + show.cover} alt={show.name} /></td>
                 <td className="p-3 text-center">{getDate(show.released_date)}</td>
                 <td className="p-3 text-center">{getDate(show.date_added)}</td>
+                <td className="p-3 text-center">{show.featured ? <FaCheckCircle className="mx-auto text-green-500" /> : <FaTimesCircle className="mx-auto text-red-500" />}</td>
               </tr>
             ))}
           </tbody>

@@ -56,16 +56,19 @@ const showSlice = createSlice({
       state.loading = true;
       state.error = null;
       state.shows = [];
+      state.success = null;
     });
     builder.addCase(getShows.fulfilled, (state, {payload}) => {
       state.loading = false;
       state.error = null;
       state.shows = payload;
+      state.success = null;
     });
     builder.addCase(getShows.rejected, (state, {payload}) => {
       state.loading = false;
       state.error = payload;
       state.shows = [];
+      state.success = null;
     });
     //  getFeaturedShows
     builder.addCase(getFeaturedShows.pending, (state) => {
