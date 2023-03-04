@@ -2,9 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addShow } from '../store/show';
-import { genres as genresData, showTypes } from '../utils/constants';
-import { actors } from '../utils/data';
+import { Spinner } from '../../components';
+import { addShow } from '../../store/show';
+import { genres as genresData, showTypes } from '../../utils/constants';
+import { actors } from '../../utils/data';
 
 const AddShowPage = ({title}) => {
   document.title = title;
@@ -24,6 +25,7 @@ const AddShowPage = ({title}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {userInfo} = useSelector(state => state.auth);
+  const {loading, success} = useSelector(state => state.shows);
   const [countries, setCountries] = useState([]);
   const getCountries = async () => {
     const {data} = await axios.get("https://restcountries.com/v3.1/all");
@@ -60,7 +62,7 @@ const AddShowPage = ({title}) => {
   return (
     <div className="container mx-auto h-full m-14 grid place-items-center">
       <form method="POST" className="w-full md:w-3/4 xl:w-1/2 flex flex-col gap-6" onSubmit={submitFn} encType="multipart/form-data">
-        {/* <div className="bg-transparent w-full p-3 text-red-600 border-red-600 border-2 rounded"></div> */}
+        {success && <div className="bg-transparent w-full p-3 text-green-600 border-green-600 border-2 rounded">{success}</div>}
         <h1 className="text-4xl font-semibold">Add New Show</h1>
         <label className="text-xl -mb-3">Name:</label>
         <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="text" name="name" placeholder="Name" onChange={e => setName(e.target.value)} />
@@ -107,7 +109,7 @@ const AddShowPage = ({title}) => {
           <input id="featured" className="border-[1px] focus:outline-none focus:border-mainColor rounded-xl accent-mainColor" type="checkbox" name="featured" placeholder="Featured" checked={featured} onChange={e => setFeatured(!featured)} />
           <label htmlFor="featured" className="text-xl">Featured</label>
         </div>
-        <input className="bg-mainColor w-full text-white py-3 cursor-pointer rounded-xl" type="submit" name="submit" value="Add" />
+        <button className="bg-mainColor w-full text-white py-3 cursor-pointer rounded-xl" type="submit" name="submit">{loading ? (<Spinner size={24} />) : 'Add'}</button>
       </form>
     </div>
   )
