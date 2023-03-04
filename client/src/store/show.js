@@ -4,8 +4,8 @@ import { URL } from "../utils/constants";
 
 export const getShows = createAsyncThunk(
   'show/getShows',
-  async (type) => {
-    const {data} = await axios.get(`${URL}/shows?type=${type}`);
+  async ({type, search}) => {
+    const {data} = await axios.get(`${URL}/shows?type=${type}&search=${search}`);
     return data;
   }
 );
@@ -13,7 +13,7 @@ export const getShows = createAsyncThunk(
 export const getFeaturedShows = createAsyncThunk(
   'show/getFeaturedShows',
   async () => {
-    const {data} = await axios.get(`${URL}/shows?featured=true`);
+    const {data} = await axios.get(`${URL}/shows/featured`);
     return data;
   }
 );

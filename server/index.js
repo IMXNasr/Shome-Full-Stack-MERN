@@ -64,19 +64,20 @@ const moveFile = (oldPath, newPath) => {
 
 app.get('/shows', async (req, res) => {
   let allShows;
-  if(req.query.featured){
-    allShows = await Show.find({featured: true}).sort({date_added: -1});
-  }else if(req.query.type){
-    if(req.query.type === 'all'){
-      allShows = await Show.find({}).sort({date_added: -1});
-    }else{
-      allShows = await Show.find({type: req.query.type}).sort({date_added: -1});
-    }
+  if(req.query.type === 'all'){
+    console.log(req.query.search);
+    allShows = await Show.find({name: {$regex: req.query.search, $options: 'i'}}).sort({date_added: -1});
+    console.log(allShows);
   }else{
-    allShows = await Show.find({}).sort({date_added: -1});
+    allShows = await Show.find({name: {"$regex": req.query.search}, type: req.query.type}).sort({date_added: -1});
   }
   return res.json(allShows);
 });
+
+app.get('/shows/featured', async (req, res) => {
+  const allShows = await Show.find({featured: true}).sort({date_added: -1});
+  return res.json(allShows);
+})
 
 // getOneShow
 app.get('/show/:id', async (req, res) => {

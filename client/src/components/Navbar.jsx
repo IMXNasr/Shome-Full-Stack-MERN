@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RiMovie2Fill } from 'react-icons/ri';
 import { FaSearch, FaUser } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { appName } from '../utils/constants';
 
 const Navbar = () => {
   const {userInfo} = useSelector(state => state.auth);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [search, setSearch] = useState(location.search.split('search=')[1] || '');
+  const searchFn = (e) => {
+    e.preventDefault();
+    navigate('/all/?search=' + search);
+  }
   return (
     <nav>
       <div className="container py-4 flex items-center justify-between">
@@ -23,8 +30,8 @@ const Navbar = () => {
           <NavLink className="mx-2 hover:text-mainColor transition-colors" to="/cartoon">Cartoons</NavLink>
         </ul>
         {/* Search */}
-        <form onSubmit={e => e.preventDefault()} className="flex items-center border rounded-xl p-2" method="POST">
-          <input className="bg-transparent focus:outline-none" type="text" name="search" id="search" placeholder="What do you want to watch?" />
+        <form onSubmit={searchFn} className="flex items-center border rounded-xl p-2" method="POST">
+          <input className="bg-transparent focus:outline-none" type="text" name="search" id="search" placeholder="What do you want to watch?" value={search} onChange={e => setSearch(e.target.value)} />
           <button type="submit"><FaSearch className="text-gray-200" /></button>
         </form>
         {/* Buttons */}
