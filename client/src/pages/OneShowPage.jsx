@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPlay, BsBookmark } from 'react-icons/bs';
 import { HiOutlineShare } from 'react-icons/hi';
-import { Actor, Spinner } from '../components';
+import { Actor, Spinner, WatchTrailer } from '../components';
 import { useParams } from 'react-router-dom';
-import YouTubePlayer from 'react-player/youtube';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneShow } from '../store/show';
 import { appName, staticURL, URL } from '../utils/constants';
@@ -36,7 +35,6 @@ const OneShowPage = () => {
   // if(show)
   return (
     loading ? <Spinner /> : show ? (
-
     <>
       <header style={headerStyle} className="h-[600px] pointer-events-none"></header>
       {/* Bottom Section */}
@@ -97,10 +95,7 @@ const OneShowPage = () => {
       </div>
       {/* YouTube */}
       {watchTrailer && (
-        <div className="fixed w-full h-full bg-bgDark/90 top-0 left-0 grid place-items-center" onClick={() => setWatchTrailer(false)}>
-          <YouTubePlayer className="h-full" url={show.trailer_link} controls />
-          {/*FIXME Use container to the player to style the container and the player */}
-        </div>
+        <WatchTrailer url={show.trailer_link} setWatchTrailer={setWatchTrailer} />
       )}
     </>
     ) : null

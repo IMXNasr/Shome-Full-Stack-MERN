@@ -8,8 +8,7 @@
   }
 }
 ::selection {
-  background-color: #ff515a;
-  color: white;
+  @apply bg-mainColor text-white;
 }
 ::-webkit-scrollbar {
   /* background-color: transparent;
@@ -18,9 +17,9 @@
   display: none;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #ff515a;
+  @apply bg-mainColor;
   border-radius: 34rem;
 }
 a.active {
-  color: #ff515a;
+  @apply text-mainColor;
 }
