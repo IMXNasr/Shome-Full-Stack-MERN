@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { staticURL } from '../utils/constants';
 import { BsBookmark, BsChevronLeft, BsPlay } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ const Slider = ({shows, activeSlider, setActiveSlider, setWatchTrailer}) => {
       style={{backgroundImage: `linear-gradient(to top, #161a1eaa, #161a1eaa), url(${staticURL + '/cover/' + shows[activeSlider].cover})`}}>
       <Arrow onClick={() => setActiveSlider(activeSlider === 0 ? shows.length - 1 : activeSlider - 1)} />
       <div className="flex-1 h-[85%] flex flex-col justify-end">
-        <h1 className="font-bold text-4xl sm:text-5xl lg:text-6xl">
+        <h1 className="w-fit font-bold text-4xl sm:text-5xl lg:text-6xl">
           <Link to={`/${shows[activeSlider].type}/${shows[activeSlider]._id}`}>{shows[activeSlider].name}</Link>
         </h1>
         <p className="max-w-2xl text-gray-200 my-2">{shows[activeSlider].genres && shows[activeSlider].genres.map((genre, idx, genres) => genre.toUpperCase() + ((genres.length - 1 !== idx) ? ', ' : ''))}</p>
