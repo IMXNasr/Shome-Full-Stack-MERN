@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPlay, BsBookmark } from 'react-icons/bs';
 import { HiOutlineShare } from 'react-icons/hi';
-import { Actor } from '../components';
+import { Actor, Spinner } from '../components';
 import { useParams } from 'react-router-dom';
-import { shows } from '../utils/data';
 import YouTubePlayer from 'react-player/youtube';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneShow } from '../store/show';
@@ -34,8 +33,10 @@ const OneShowPage = () => {
       });
     }
   }, [show]);
-  if(show)
+  // if(show)
   return (
+    loading ? <Spinner /> : show ? (
+
     <>
       <header style={headerStyle} className="h-[600px] pointer-events-none"></header>
       {/* Bottom Section */}
@@ -102,6 +103,7 @@ const OneShowPage = () => {
         </div>
       )}
     </>
+    ) : null
   )
 }
 
