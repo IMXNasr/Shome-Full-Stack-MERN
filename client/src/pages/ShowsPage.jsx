@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { ShowCard, Spinner } from '../components';
+import { ShowCard, Spinner, Warning } from '../components';
 import { getShows } from '../store/show';
 import { appName } from '../utils/constants';
 
@@ -30,6 +30,9 @@ const ShowsPage = () => {
             <ShowCard key={idx} show={show} />
           ))}
         </div>
+      )}
+      {shows.length <= 0 && !loading && (
+        <Warning>Can't find shows</Warning>
       )}
     </main>
   )
