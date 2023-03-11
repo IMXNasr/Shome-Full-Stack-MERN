@@ -50,8 +50,8 @@ const ShowsPage = () => {
           </tbody>
         </table>
         </div>
-        <Link to="/admin/shows/add">
-          <button className="bg-mainColor py-3 px-4 mt-6">Add Show</button>
+        <Link to="/admin/actors/add">
+          <button className="bg-mainColor py-3 px-4 mt-6">Add Actor</button>
         </Link>
         </>
       )}

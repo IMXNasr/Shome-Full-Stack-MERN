@@ -4,6 +4,7 @@ import express from 'express';
 import User from './models/User.js';
 import Show from './models/Show.js';
 import Actor from './models/Actor.js';
+import Act from './models/Act.js';
 import { sha1 } from './utils/functions.js';
 import jwtEncode from 'jwt-encode';
 import formidable from 'formidable';
@@ -141,6 +142,21 @@ app.post('/admin/actors/add', (req, res) => {
     await Actor.create(newActor);
     return res.json({"success": "Added successfully !!"});
   });
+});
+
+app.post('/admin/acting', async (req, res) => {
+  const newAct = {
+    actor: req.body.actor,
+    show: req.body.show,
+    act_as: req.body.as
+  }
+  const existAct = await Act.findOne({actor: newAct.actor, show: newAct.show});
+  if(!existAct){
+    await Act.create(newAct);
+    return res.json({"success": "Added successfully !!"});
+  }else{
+    return res.json({"error": "Already Exists !!"});
+  }
 });
 
 const PORT = 8000;

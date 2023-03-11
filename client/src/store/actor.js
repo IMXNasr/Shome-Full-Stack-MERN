@@ -18,6 +18,18 @@ export const addActor = createAsyncThunk(
   }
 );
 
+export const addActing = createAsyncThunk(
+  'actor/addActing',
+  async (body, {fulfillWithValue, rejectWithValue}) => {
+    const {data} = await axios.post(`${URL}/admin/acting`, body);
+    if(data.success){
+      return fulfillWithValue(data);
+    }else{
+      return rejectWithValue(data);
+    }
+  }
+)
+
 const actorSlice = createSlice({
   name: "actor",
   initialState: {
@@ -61,6 +73,22 @@ const actorSlice = createSlice({
     builder.addCase(addActor.rejected, (state, {payload}) => {
       state.loading = false;
       state.error = payload;
+      state.success = null;
+    });
+    // addActing
+    builder.addCase(addActing.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+      state.success = null;
+    });
+    builder.addCase(addActing.fulfilled, (state, {payload}) => {
+      state.loading = false;
+      state.error = null;
+      state.success = payload.success;
+    });
+    builder.addCase(addActing.rejected, (state, {payload}) => {
+      state.loading = false;
+      state.error = payload.error;
       state.success = null;
     });
   }

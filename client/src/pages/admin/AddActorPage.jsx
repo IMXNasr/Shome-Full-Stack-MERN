@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components';
 import { addActor } from '../../store/actor';
 
-const AddShowPage = ({title}) => {
+const AddActorPage = ({title}) => {
   document.title = title;
   const [name, setName] = useState("");
   const [gender, setGender] = useState("Male");
@@ -24,7 +24,7 @@ const AddShowPage = ({title}) => {
   }
   useEffect(() => {
     if(!userInfo){
-      navigate('/login?redirect=admin/add-show', 'replace');
+      navigate('/login?redirect=admin/actors/add', 'replace');
     }else if (!userInfo.admin){
       navigate('/', 'replace');
     }else{
@@ -63,12 +63,12 @@ const AddShowPage = ({title}) => {
         <datalist name="place_of_birth" id="place_of_birth">
           {countries && countries.map((country, idx) => (<option key={idx} value={country.name.common}>{country.name.common}</option>))}
         </datalist>
-        <label className="text-xl -mb-3">Image:</label>
-        <input className="file:bg-mainColor file:border-none file:text-white file:rounded-full file:py-2 file:px-4 cursor-pointer focus:outline-none" required type="file" name="image" placeholder="Image" onChange={e => setPhoto(e.target.files[0])} />
+        <label className="text-xl -mb-3">Photo:</label>
+        <input className="file:bg-mainColor file:border-none file:text-white file:rounded-full file:py-2 file:px-4 cursor-pointer focus:outline-none" required type="file" name="photo" onChange={e => setPhoto(e.target.files[0])} />
         <button className="bg-mainColor w-full text-white py-3 cursor-pointer rounded-xl" type="submit" name="submit">{loading ? (<Spinner size={24} />) : 'Add'}</button>
       </form>
     </div>
   )
 }
 
-export default AddShowPage;
+export default AddActorPage;

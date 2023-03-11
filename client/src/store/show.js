@@ -4,7 +4,7 @@ import { URL } from "../utils/constants";
 
 export const getShows = createAsyncThunk(
   'show/getShows',
-  async ({type, search}) => {
+  async ({type, search = ''}) => {
     const {data} = await axios.get(`${URL}/shows?type=${type}&search=${search}`);
     return data;
   }

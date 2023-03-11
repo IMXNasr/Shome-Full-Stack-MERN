@@ -26,7 +26,7 @@ const AdminPage = ({title}) => {
         <ShowCard icon={<FaUser size={iconSize} />} name="Users" link="/admin/users" />
         <ShowCard icon={<IoTv size={iconSize} />} name="Shows" link="/admin/shows" />
         <ShowCard icon={<GiSwordman size={iconSize} />} name="Actors" link="/admin/actors" />
-        <ShowCard icon={<IoTv size={iconSize} />} name="Shows" link="/admin/shows" />
+        <ShowCard icon={<IoTv size={iconSize} />} name="Acting" link="/admin/acting" />
       </div>
     </main>
   )
