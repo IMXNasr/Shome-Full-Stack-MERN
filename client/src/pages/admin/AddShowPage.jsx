@@ -60,7 +60,7 @@ const AddShowPage = ({title}) => {
     // console.log(formData);
   }
   return (
-    <div className="container mx-auto h-full m-14 grid place-items-center">
+    <div className="container mx-auto m-14 grid place-items-center">
       <form method="POST" className="w-full md:w-3/4 xl:w-1/2 flex flex-col gap-6" onSubmit={submitFn} encType="multipart/form-data">
         {success && <div className="bg-transparent w-full p-3 text-green-600 border-green-600 border-2 rounded">{success}</div>}
         <h1 className="text-4xl font-semibold">Add New Show</h1>

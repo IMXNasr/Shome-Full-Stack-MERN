@@ -47,9 +47,7 @@ const showSlice = createSlice({
     show: null,
     success: null,
   },
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: builder => {
     //  getShows
     builder.addCase(getShows.pending, (state) => {

@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import User from './models/User.js';
 import Show from './models/Show.js';
+import Actor from './models/Actor.js';
 import { sha1 } from './utils/functions.js';
 import jwtEncode from 'jwt-encode';
 import formidable from 'formidable';
@@ -114,6 +115,24 @@ app.post('/admin/add-show', (req, res) => {
       featured: fields.featured === 'true' ? true : false,
     };
     await Show.create(newShow);
+    return res.json({"success": "Added successfully !!"});
+  });
+});
+
+app.post('/admin/actors/add', (req, res) => {
+  const form = formidable({multiples: true});
+  form.parse(req, async (err, fields, files) => {
+    const newPhotoName = Date.now() + '_' + files.photo.originalFilename;
+    moveFile(files.photo.filepath, './uploads/actor/' + newPhotoName);
+    const newActor = {
+      name: fields.name,
+      gender : fields.gender,
+      biography: fields.biography,
+      birthday: fields.birthday,
+      place_of_birth: fields.place_of_birth,
+      photo: newPhotoName
+    }
+    await Actor.create(newActor);
     return res.json({"success": "Added successfully !!"});
   });
 });

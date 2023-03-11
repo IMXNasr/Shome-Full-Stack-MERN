@@ -14,7 +14,6 @@ const Show = new mongoose.Schema({
   image: {type: String},
   featured: {type: Boolean},
   cover: {type: String},
-  actors: {type: mongoose.Schema.Types.ObjectId, ref: 'Actor'},
   date_added: {type: Date, default: Date.now},
 });
 

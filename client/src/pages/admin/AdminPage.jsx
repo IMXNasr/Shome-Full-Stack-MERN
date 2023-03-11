@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ShowCard } from '../../components/admin';
 import { IoTv } from 'react-icons/io5';
 import { FaUser } from 'react-icons/fa';
+import { GiSwordman } from 'react-icons/gi';
 
 const AdminPage = ({title}) => {
   document.title = title;
@@ -24,7 +25,7 @@ const AdminPage = ({title}) => {
       <div className="mt-6 grid gap-4 grid-cols-1 md:grid-cols-2">
         <ShowCard icon={<FaUser size={iconSize} />} name="Users" link="/admin/users" />
         <ShowCard icon={<IoTv size={iconSize} />} name="Shows" link="/admin/shows" />
-        <ShowCard icon={<IoTv size={iconSize} />} name="Shows" link="/admin/shows" />
+        <ShowCard icon={<GiSwordman size={iconSize} />} name="Actors" link="/admin/actors" />
         <ShowCard icon={<IoTv size={iconSize} />} name="Shows" link="/admin/shows" />
       </div>
     </main>

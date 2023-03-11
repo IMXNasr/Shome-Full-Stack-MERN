@@ -6,6 +6,9 @@
   * {
     font-family: 'Poppins', sans-serif;
   }
+  *:focus {
+    @apply outline-none;
+  }
 }
 ::selection {
   @apply bg-mainColor text-white;

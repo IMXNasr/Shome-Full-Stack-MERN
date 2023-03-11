@@ -51,8 +51,8 @@ const ShowsPage = () => {
                 {/* <td className="p-3 text-center">{show.genres}</td> */}
                 <td className="p-3 text-center">{show.rating}</td>
                 <td className="p-3 text-center"><a className="underline text-mainColor" href={show.trailer_link} target="_blank">Link</a></td>
-                <td className="p-3 text-center">{show.runtime}<small>m</small></td>
-                <td className="p-3 text-center">{show.num_episodes}</td>
+                <td className="p-3 text-center">{+show.runtime <= 0 ? "---" : show.runtime}{show.runtime > 0 && <small>m</small>}</td>
+                <td className="p-3 text-center">{+show.num_episodes === 0 ? "---" : show.num_episodes}</td>
                 <td className="p-3 text-center">{show.country}</td>
                 <td className="p-3 text-center"><img className="h-10 mx-auto" src={staticURL + '/show/' + show.image} alt={show.name} /></td>
                 <td className="p-3 text-center"><img className="h-10 mx-auto" src={staticURL + '/cover/' + show.cover} alt={show.name} /></td>
