@@ -7,6 +7,7 @@ const Actor = new mongoose.Schema({
   birthday: {type: Date},
   place_of_birth: {type: String},
   photo: {type: String},
+  date_added: {type: Date, default: Date.now}
 });
 
 const model = mongoose.model('Actor', Actor);

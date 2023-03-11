@@ -17,8 +17,6 @@ const ShowsPage = () => {
   useEffect(() => {
     dispatch(getShows({type: 'all', search: location.search.split('search=')[1] || ''}));
   }, []);
-  useEffect(() => {
-  }, [shows]);
   return (
     <main className="container">
       <h1 className="text-4xl font-semibold my-5">Shows:</h1>

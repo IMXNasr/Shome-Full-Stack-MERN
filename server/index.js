@@ -12,6 +12,7 @@ import fs from 'fs-extra';
 export const app = express();
 app.use('/uploads/show', express.static('./uploads/show'));
 app.use('/uploads/cover', express.static('./uploads/cover'));
+app.use('/uploads/actor', express.static('./uploads/actor'));
 app.use(express.json());
 app.use(cors());
 
@@ -117,6 +118,11 @@ app.post('/admin/add-show', (req, res) => {
     await Show.create(newShow);
     return res.json({"success": "Added successfully !!"});
   });
+});
+
+app.get('/actors', async (req, res) => {
+  const allActors = await Actor.find({});
+  res.json(allActors);
 });
 
 app.post('/admin/actors/add', (req, res) => {
