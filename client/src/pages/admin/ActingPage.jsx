@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components';
-import { addActing, getActors } from '../../store/actor';
+import { addActing } from '../../store/act';
+import { getActors } from '../../store/actor';
 import { getShows } from '../../store/show';
 
 const ActingPage = ({title}) => {
@@ -13,8 +14,9 @@ const ActingPage = ({title}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {userInfo} = useSelector(state => state.auth);
-  const {loading, actors, success} = useSelector(state => state.actors);
+  const {actors} = useSelector(state => state.actors);
   const {shows} = useSelector(state => state.shows);
+  const {loading, error, success} = useSelector(state => state.act);
   useEffect(() => {
     if(!userInfo){
       navigate('/login?redirect=admin/acting', 'replace');

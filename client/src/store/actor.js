@@ -10,6 +10,14 @@ export const getActors = createAsyncThunk(
   }
 );
 
+export const getOneActor = createAsyncThunk(
+  'actor/getOneActor',
+  async (id) => {
+    const {data} = await axios.get(`${URL}/actors/${id}`);
+    return data;
+  }
+)
+
 export const addActor = createAsyncThunk(
   'actor/addActor',
   async (formData) => {
@@ -18,24 +26,13 @@ export const addActor = createAsyncThunk(
   }
 );
 
-export const addActing = createAsyncThunk(
-  'actor/addActing',
-  async (body, {fulfillWithValue, rejectWithValue}) => {
-    const {data} = await axios.post(`${URL}/admin/acting`, body);
-    if(data.success){
-      return fulfillWithValue(data);
-    }else{
-      return rejectWithValue(data);
-    }
-  }
-)
-
 const actorSlice = createSlice({
   name: "actor",
   initialState: {
     loading: false,
     error: null,
     actors: [],
+    actor: null,
     success: null
   },
   reducers: {},
@@ -59,6 +56,28 @@ const actorSlice = createSlice({
       state.actors = [];
       state.success = null;
     });
+    // getOneActor
+    builder.addCase(getOneActor.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+      state.actors = null;
+      state.success = null;
+      state.actor = null;
+    });
+    builder.addCase(getOneActor.fulfilled, (state, {payload}) => {
+      state.loading = false;
+      state.error = null;
+      state.actors = null;
+      state.success = null;
+      state.actor = payload;
+    });
+    builder.addCase(getOneActor.rejected, (state, {payload}) => {
+      state.loading = false;
+      state.error = payload;
+      state.actors = null;
+      state.success = null;
+      state.actor = null;
+    });
     // addActor
     builder.addCase(addActor.pending, (state) => {
       state.loading = true;
@@ -73,22 +92,6 @@ const actorSlice = createSlice({
     builder.addCase(addActor.rejected, (state, {payload}) => {
       state.loading = false;
       state.error = payload;
-      state.success = null;
-    });
-    // addActing
-    builder.addCase(addActing.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-      state.success = null;
-    });
-    builder.addCase(addActing.fulfilled, (state, {payload}) => {
-      state.loading = false;
-      state.error = null;
-      state.success = payload.success;
-    });
-    builder.addCase(addActing.rejected, (state, {payload}) => {
-      state.loading = false;
-      state.error = payload.error;
       state.success = null;
     });
   }

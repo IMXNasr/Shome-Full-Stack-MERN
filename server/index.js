@@ -68,9 +68,7 @@ const moveFile = (oldPath, newPath) => {
 app.get('/shows', async (req, res) => {
   let allShows;
   if(req.query.type === 'all'){
-    console.log(req.query.search);
     allShows = await Show.find({name: {$regex: req.query.search, $options: 'i'}}).sort({date_added: -1});
-    console.log(allShows);
   }else{
     allShows = await Show.find({name: {"$regex": req.query.search}, type: req.query.type}).sort({date_added: -1});
   }
@@ -126,6 +124,11 @@ app.get('/actors', async (req, res) => {
   res.json(allActors);
 });
 
+app.get('/actors/:id', async (req, res) => {
+  const oneActor = await Actor.findById(req.params.id);
+  res.json(oneActor);
+});
+
 app.post('/admin/actors/add', (req, res) => {
   const form = formidable({multiples: true});
   form.parse(req, async (err, fields, files) => {
@@ -156,6 +159,17 @@ app.post('/admin/acting', async (req, res) => {
     return res.json({"success": "Added successfully !!"});
   }else{
     return res.json({"error": "Already Exists !!"});
+  }
+});
+
+app.get('/admin/acting/:id', async (req, res) => {
+  const forWhat = req.query.for;
+  if(forWhat === 'show'){
+    const allActs = await Act.find({show: req.params.id});
+    return res.json(allActs);
+  }else if(forWhat === 'actor'){
+    const allActs = await Act.find({actor: req.params.id});
+    return res.json(allActs);
   }
 });
 

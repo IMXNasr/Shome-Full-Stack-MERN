@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneShow } from '../store/show';
 import { appName, staticURL, URL } from '../utils/constants';
+import { getActingForShow } from '../store/act';
 
 const OneShowPage = () => {
   const {id, type} = useParams();
@@ -13,13 +14,17 @@ const OneShowPage = () => {
   const [headerStyle, setHeaderStyle] = useState({});
   const dispatch = useDispatch();
   const {loading, error, show} = useSelector(state => state.shows);
+  const {acts} = useSelector(state => state.act);
   const section = useRef();
   useEffect(() => {
     window.addEventListener('scroll', () => {
       let value = window.scrollY;
-      section.current.style.top = '-' + (value * 0.5 + 300) + 'px';
+      if(section){
+        section.current.style.top = '-' + (value * 0.5 + 300) + 'px';
+      }
     });
     dispatch(getOneShow({id, type}));
+    dispatch(getActingForShow(id));
   }, [dispatch, id, type]);
   useEffect(() => {
     if(show && show.cover){
@@ -86,9 +91,9 @@ const OneShowPage = () => {
           <h1 className="text-4xl font-semibold mb-5">Cast & Crew</h1>
           {/* Actors */}
           <div>
-            {/* FIXME */}
-            {show.actors && show.actors.map((actor, idx) => (
-              <Actor key={idx} img={actor.photo} name={actor.name} as={actor.as} />
+            {/* FIXME Actors below */}
+            {acts && acts.map((act, idx) => (
+              <Actor key={idx} id={act.actor} as={act.act_as} />
             ))}
           </div>
         </div>
