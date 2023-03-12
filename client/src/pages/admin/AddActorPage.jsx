@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from '../../components';
+import { Message, Spinner } from '../../components';
 import { addActor } from '../../store/actor';
 
 const AddActorPage = ({title}) => {
@@ -45,7 +45,7 @@ const AddActorPage = ({title}) => {
   return (
     <div className="container mx-auto m-14 grid place-items-center">
       <form method="POST" className="w-full md:w-3/4 xl:w-1/2 flex flex-col gap-6" onSubmit={submitFn} encType="multipart/form-data">
-        {success && <div className="bg-transparent w-full p-3 text-green-600 border-green-600 border-2 rounded">{success}</div>}
+        {success && <Message type="success">{success}</Message>}
         <h1 className="text-4xl font-semibold">Add New Actor</h1>
         <label className="text-xl -mb-3">Name:</label>
         <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="text" name="name" placeholder="Name" onChange={e => setName(e.target.value)} />

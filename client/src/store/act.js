@@ -46,7 +46,7 @@ const actSlice = createSlice({
     });
     builder.addCase(addActing.rejected, (state, {payload}) => {
       state.loading = false;
-      state.error = payload;
+      state.error = payload.error;
       state.success = null;
     });
     // getActingForShow

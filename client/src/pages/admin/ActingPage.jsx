@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from '../../components';
+import { Message, Spinner } from '../../components';
 import { addActing } from '../../store/act';
 import { getActors } from '../../store/actor';
 import { getShows } from '../../store/show';
@@ -37,7 +37,7 @@ const ActingPage = ({title}) => {
   return (
     <div className="container mx-auto m-14 grid place-items-center">
       <form method="POST" className="w-full md:w-3/4 xl:w-1/2 flex flex-col gap-6" onSubmit={submitFn} encType="multipart/form-data">
-        {success && <div className="bg-transparent w-full p-3 text-green-600 border-green-600 border-2 rounded">{success}</div>}
+        {success ? <Message type="success">{success}</Message> : error ? <Message type="error">{error}</Message> : null}
         <h1 className="text-4xl font-semibold">Add Acting</h1>
         <label className="text-xl -mb-3">Actor:</label>
         <select className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" name="gender" onChange={e => setActor(e.target.value)} >

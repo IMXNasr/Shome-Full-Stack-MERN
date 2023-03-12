@@ -7,3 +7,4 @@ export { default as Spinner } from './Spinner';
 export { default as Slider } from './Slider';
 export { default as WatchTrailer } from './WatchTrailer';
 export { default as Warning } from './Warning';
+export { default as Message } from './Message';

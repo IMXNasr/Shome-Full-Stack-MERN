@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { Message } from '../components';
 import { register } from '../store/auth';
 
 const registerPage = ({title}) => {
@@ -24,9 +25,7 @@ const registerPage = ({title}) => {
   return (
     <div className="container mx-auto h-full p-10 md:p-20 grid place-items-center">
       <form method="POST" className="w-full md:w-3/4 xl:w-1/2 flex flex-col gap-6" onSubmit={submitFn}>
-        {error && (
-          <div className="w-full p-3 text-red-600 border-red-600 border-2 rounded">{error}</div>
-        )}
+        {error && <Message type="error">{error}</Message>}
         <h1 className="text-4xl font-semibold text-center">Register</h1>
         <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="text" name="name" placeholder="Name" onChange={e => setName(e.target.value)} />
         <input className="bg-transparent w-full p-3 border-[1px] focus:outline-none focus:border-mainColor rounded-xl" required type="text" name="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
