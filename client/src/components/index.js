@@ -8,3 +8,4 @@ export { default as Slider } from './Slider';
 export { default as WatchTrailer } from './WatchTrailer';
 export { default as Warning } from './Warning';
 export { default as Message } from './Message';
+export { default as Show } from './Show';

@@ -82,7 +82,12 @@ app.get('/shows/featured', async (req, res) => {
 
 // getOneShow
 app.get('/show/:id', async (req, res) => {
-  const oneShow = await Show.findOne({_id: req.params.id, type: req.query.type});
+  let oneShow;
+  if(req.query.type){
+    oneShow = await Show.findOne({_id: req.params.id, type: req.query.type});
+  }else{
+    oneShow = await Show.findOne({_id: req.params.id});
+  }
   if(oneShow){
     return res.json({"success": "Fetched Successfully !!", "show": oneShow});
   }else{

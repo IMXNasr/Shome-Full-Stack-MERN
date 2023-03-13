@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { Spinner } from "../components";
+import { Show, Spinner } from "../components";
+import { getActingForActor } from "../store/act";
 import { getOneActor } from "../store/actor";
 import { genres, getAge, getDate, staticURL } from "../utils/constants";
 
@@ -9,9 +10,11 @@ const OneActorPage = ({title}) => {
   document.title = title;
   const dispatch = useDispatch();
   const {loading, error, actor} = useSelector(state => state.actors);
+  const {acts} = useSelector(state => state.act);
   const {id} = useParams();
   useEffect(() => {
     dispatch(getOneActor(id));
+    dispatch(getActingForActor(id));
   }, [id]);
   return (
     loading ? <Spinner /> : actor &&
@@ -39,15 +42,8 @@ const OneActorPage = ({title}) => {
         <div className="overflow-auto flex py-3">
           {/* Show Card */}
           <div className="flex gap-6">
-          {genres.map((show, idx) => (
-            <div className="flex flex-col items-center justify-between gap-2 w-36">
-              <Link to="/">
-                <img className="rounded-lg" src="/venom.jpg" alt="" />
-              </Link>
-              <Link to="/" className="hover:text-mainColor transition-colors">
-                <h5 className="text-md font-light">Venom</h5>
-              </Link>
-            </div>
+          {acts && acts.map((show, idx) => (
+            <Show key={idx} id={show.show} />
           ))}
           </div>
         </div>

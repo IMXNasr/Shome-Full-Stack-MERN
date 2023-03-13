@@ -23,6 +23,14 @@ export const getActingForShow = createAsyncThunk(
   }
 );
 
+export const getActingForActor = createAsyncThunk(
+  'act/getActingForActor',
+  async (id) => {
+    const {data} = await axios.get(`${URL}/admin/acting/${id}?for=actor`);
+    return data;
+  }
+);
+
 const actSlice = createSlice({
   name: "act",
   initialState: {
@@ -63,6 +71,25 @@ const actSlice = createSlice({
       state.acts = payload;
     });
     builder.addCase(getActingForShow.rejected, (state, {payload}) => {
+      state.loading = false;
+      state.error = payload;
+      state.success = null;
+      state.acts = null;
+    });
+    // getActingForActor
+    builder.addCase(getActingForActor.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+      state.success = null;
+      state.acts = [];
+    });
+    builder.addCase(getActingForActor.fulfilled, (state, {payload}) => {
+      state.loading = false;
+      state.error = null;
+      state.success = null;
+      state.acts = payload;
+    });
+    builder.addCase(getActingForActor.rejected, (state, {payload}) => {
       state.loading = false;
       state.error = payload;
       state.success = null;
