@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { Spinner } from '../../components';
-import { staticURL } from '../../utils/constants';
+import { getDate, staticURL } from '../../utils/constants';
 import { getActors } from '../../store/actor';
 import { BsImageFill } from 'react-icons/bs';
 
@@ -10,10 +10,6 @@ const ShowsPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const {loading, error, actors} = useSelector(state => state.actors);
-  const getDate = (date) => {
-    const newDate = new Date(date).getFullYear() + '-' + new Date(date).getMonth() + '-' + new Date(date).getDate();
-    return newDate;
-  }
   useEffect(() => {
     dispatch(getActors());
   }, []);

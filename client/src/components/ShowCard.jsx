@@ -14,7 +14,7 @@ const ShowCard = ({show}) => {
       {/* Rating */}
       <div className="my-2 p-1 flex items-center gap-1 bg-yellow-300 bg-opacity-50 border border-yellow-300 w-fit text-yellow-400 rounded-lg">
         <FaStar />
-        <h3 className="text-white">{show.rating}</h3>
+        <h3 className="text-white">{show.rating.toFixed(1)}</h3>
       </div>
       <h1 className="text-3xl font-medium mb-4 w-fit">
         <Link to={showLink} className="w-fit">

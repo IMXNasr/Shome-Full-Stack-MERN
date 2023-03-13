@@ -3,17 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { Spinner } from '../../components';
 import { getShows } from '../../store/show';
-import { staticURL } from '../../utils/constants';
+import { getDate, staticURL } from '../../utils/constants';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 const ShowsPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const {loading, error, shows} = useSelector(state => state.shows);
-  const getDate = (date) => {
-    const newDate = new Date(date).getFullYear() + '-' + new Date(date).getMonth() + '-' + new Date(date).getDate();
-    return newDate;
-  }
   useEffect(() => {
     dispatch(getShows({type: 'all', search: location.search.split('search=')[1] || ''}));
   }, []);
@@ -47,7 +43,7 @@ const ShowsPage = () => {
                 <td className="p-3 text-center"><Link className="underline text-mainColor" to={show._id}>{show.name}</Link></td>
                 <td className="p-3 text-center">{show.type === 'tv' ? 'TV Series' : show.type[0].toUpperCase() + show.type.substring(1)}</td>
                 {/* <td className="p-3 text-center">{show.genres}</td> */}
-                <td className="p-3 text-center">{show.rating}</td>
+                <td className="p-3 text-center">{show.rating.toFixed(1)}</td>
                 <td className="p-3 text-center"><a className="underline text-mainColor" href={show.trailer_link} target="_blank">Link</a></td>
                 <td className="p-3 text-center">{+show.runtime <= 0 ? "---" : show.runtime}{show.runtime > 0 && <small>m</small>}</td>
                 <td className="p-3 text-center">{+show.num_episodes === 0 ? "---" : show.num_episodes}</td>

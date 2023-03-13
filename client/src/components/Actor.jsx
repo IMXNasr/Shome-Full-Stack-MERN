@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { staticURL, URL } from '../utils/constants';
 
 const Actor = ({id, as}) => {
@@ -17,11 +18,13 @@ const Actor = ({id, as}) => {
       {/* Actor Image */}
       <div>
         <div className="w-16 aspect-square rounded-full overflow-hidden">
-          <img className="pointer-events-none" src={`${staticURL}/actor/${actor.photo}`} alt={actor.name} />
+          <Link to={`/actor/${id}`}><img className="pointer-events-none" src={`${staticURL}/actor/${actor.photo}`} alt={actor.name} /></Link>
         </div>
       </div>
       <div className="flex flex-col">
-        <h2 className="text-2xl font-semibold">{actor.name}</h2>
+        <h2 className="text-2xl font-semibold">
+          <Link to={`/actor/${id}`}>{actor.name}</Link>
+        </h2>
         <h4 className="text-sm">as {as}</h4>
       </div>
     </div>

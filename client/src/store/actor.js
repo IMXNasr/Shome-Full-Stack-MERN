@@ -16,7 +16,7 @@ export const getOneActor = createAsyncThunk(
     const {data} = await axios.get(`${URL}/actors/${id}`);
     return data;
   }
-)
+);
 
 export const addActor = createAsyncThunk(
   'actor/addActor',

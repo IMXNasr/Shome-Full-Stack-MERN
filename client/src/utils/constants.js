@@ -34,3 +34,13 @@ export const showTypes = [
     name: "Cartoon"
   },
 ];
+
+export const getDate = (date) => {
+  const newDate = new Date(date).getFullYear() + '-' + new Date(date).getMonth() + '-' + new Date(date).getDate();
+  return newDate;
+}
+
+export const getAge = (birthday) => {
+  const age = Math.floor((new Date() - new Date(birthday)) / (1000 * 60 * 60 * 24 * 365.25))
+  return age;
+}
