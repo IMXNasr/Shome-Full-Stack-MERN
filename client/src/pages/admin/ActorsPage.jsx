@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components';
 import { getDate, staticURL } from '../../utils/constants';
 import { getActors } from '../../store/actor';
@@ -8,9 +8,16 @@ import { BsImageFill } from 'react-icons/bs';
 
 const ShowsPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const {loading, error, actors} = useSelector(state => state.actors);
+  const {userInfo} = useSelector(state => state.auth);
   useEffect(() => {
+    if(!userInfo){
+      navigate('/login?redirect=admin/actors', 'replace');
+    }else if(!userInfo.admin){
+      navigate('/', 'replace');
+    }
     dispatch(getActors());
   }, []);
   return (

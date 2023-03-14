@@ -33,7 +33,7 @@ const AddShowPage = ({title}) => {
   }
   useEffect(() => {
     if(!userInfo){
-      navigate('/login?redirect=admin/add-show', 'replace');
+      navigate('/login?redirect=admin/shows/add', 'replace');
     }else if (!userInfo.admin){
       navigate('/', 'replace');
     }else{

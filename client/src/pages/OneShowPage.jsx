@@ -5,7 +5,7 @@ import { Actor, Spinner, WatchTrailer } from '../components';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneShow } from '../store/show';
-import { appName, staticURL, URL } from '../utils/constants';
+import { appName, staticURL } from '../utils/constants';
 import { getActingForShow } from '../store/act';
 
 const OneShowPage = () => {
@@ -20,9 +20,14 @@ const OneShowPage = () => {
     window.addEventListener('scroll', () => {
       let value = window.scrollY;
       if(section){
-        section.current.style.top = '-' + (value * 0.5 + 300) + 'px';
+        console.log(window.innerWidth);
+        if(window.innerWidth >= 1024) {
+          section.current.style.top = '-' + (value * 0.5 + 300) + 'px';
+        }else{
+          section.current.style.top = '-' + (value * 0.5 + 500) + 'px';
+        }
       }
-    });
+    }, []);
     dispatch(getOneShow({id, type}));
     dispatch(getActingForShow(id));
   }, [dispatch, id, type]);
@@ -41,19 +46,22 @@ const OneShowPage = () => {
   return (
     loading ? <Spinner /> : show ? (
     <>
-      <header style={headerStyle} className="h-[600px] pointer-events-none"></header>
+      {/* Background */}
+      <header style={headerStyle} className="h-[600px] pointer-events-none" />
       {/* Bottom Section */}
-      <div ref={section} className="container relative flex -top-[300px] gap-8">
+      <div ref={section} className="container relative grid lg:grid-cols-3 xl:grid-cols-4 -top-[500px] lg:-top-[300px] gap-8">
+
         {/* Image Container */}
-        <div><div className="overflow-hidden rounded-2xl w-72 shadow-xl"><img className="pointer-events-none" src={staticURL + "/show/" + show.image} alt={show.name} /></div></div>
+        <div className="mx-auto lg:mx-0"><div className="overflow-hidden rounded-2xl w-72 md:w-80 lg:w-full shadow-xl"><img className="pointer-events-none" src={staticURL + "/show/" + show.image} alt={show.name} /></div></div>
+
         {/* Info */}
-        <div className="flex-1">
-          <h1 className="text-6xl font-semibold mb-5">{show.name}</h1>
+        <div className="lg:col-span-2">
+          <h1 className="text-5xl md:text-6xl font-semibold mb-5">{show.name}</h1>
           {/* Buttons */}
           <div className="flex items-center justify-start gap-4">
-            <button className="bg-mainColor py-2 px-4 rounded-full flex items-center text-lg" onClick={() => setWatchTrailer(true)}>Watch trailer <BsPlay /></button>
-            <button className="border p-4 rounded-full flex items-center text-lg"><BsBookmark /></button>
-            <button className="border p-4 rounded-full flex items-center text-lg"><HiOutlineShare /></button>
+            <button className="bg-mainColor py-3 px-4 rounded-full flex items-center text-md md:text-lg" onClick={() => setWatchTrailer(true)}>Watch trailer <BsPlay /></button>
+            <button className="border p-4 rounded-full flex items-center text-md md:text-lg"><BsBookmark /></button>
+            <button className="border p-4 rounded-full flex items-center text-md md:text-lg active:bg-white active:text-bgDark" onClick={() => navigator.clipboard.writeText(window.location.href)}><HiOutlineShare /></button>
           </div>
           <h1 className="text-4xl font-semibold mt-6">Overview</h1>
           <p className="text-gray-200 mt-4">{show.description}</p>
@@ -61,7 +69,7 @@ const OneShowPage = () => {
           {/* Detail Section */}
           <div className="flex items-center border-b border-gray-400 py-3 mb-5">
             <h3 className="mr-5 font-semibold text-xl">Genres:</h3>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               {show.genres && show.genres.map((genre, idx) => (
                 <div className="rounded-full bg-gray-600 py-1 px-3" key={idx}>{genre}</div>
               ))}
@@ -97,6 +105,7 @@ const OneShowPage = () => {
             ))}
           </div>
         </div>
+
       </div>
       {/* YouTube */}
       {watchTrailer && (

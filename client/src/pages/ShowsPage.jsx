@@ -18,7 +18,7 @@ const ShowsPage = () => {
   const dispatch = useDispatch();
   const {loading, error, shows} = useSelector(state => state.shows);
   useEffect(() => {
-    dispatch(getShows({type, search: location.search.split('search=')[1] || ''})); //! Error
+    dispatch(getShows({type, search: location.search.split('search=')[1] || ''}));
   }, [type, location]);
   return (
     <main className="container py-4 mt-6">
