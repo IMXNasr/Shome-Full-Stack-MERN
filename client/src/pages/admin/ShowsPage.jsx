@@ -14,7 +14,7 @@ const ShowsPage = () => {
     dispatch(getShows({type: 'all', search: location.search.split('search=')[1] || ''}));
   }, []);
   return (
-    <main className="container">
+    <main className="container my-5">
       <h1 className="text-4xl font-semibold my-5">Shows:</h1>
       {loading ? <Spinner /> : (
         <>
